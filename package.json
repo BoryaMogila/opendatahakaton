@@ -1,0 +1,26 @@
+{
+  "name": "opendatahakaton",
+  "version": "1.0.0",
+  "description": "",
+  "main": "posedetect.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BoryaMogila/opendatahakaton.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BoryaMogila/opendatahakaton/issues"
+  },
+  "homepage": "https://github.com/BoryaMogila/opendatahakaton#readme",
+  "dependencies": {
+    "@tensorflow-models/posenet": "^0.2.3",
+    "@tensorflow/tfjs": "^0.13.3",
+    "@tensorflow/tfjs-node": "^0.1.19",
+    "canvas": "^2.0.1",
+    "xhr2": "^0.1.4"
+  }
+}
