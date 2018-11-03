@@ -6,15 +6,23 @@
 </head>
 <body>
 
-<img id="img">
+<header>
+    rtsp://Oleksii:eLtGk4Cb@31.42.173.15:8074/defaultPrimary?streamType=u
+</header>
+<main>
+    <img id="img">
+</main>
+<aside>
+
+</aside>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    var img = document.getElementById('img'),
-        socket = io('');
+    var img = document.getElementById('img');
+    var socket = io('');
+
     socket.on('data', function(data) {
         img.src = 'data:image/jpeg;base64,' + data;
     });
 </script>
-
 </body>
 </html>
