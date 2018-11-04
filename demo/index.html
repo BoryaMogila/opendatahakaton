@@ -9,10 +9,10 @@
 <header>
     local
 </header>
-<table>
+<table width="100%">
     <tr>
-        <td><video id="video" width="100%"/></td>
-        <td> <img id="img"  width="100%"></td>
+        <td align="center" width="50%"><video id="video" width="100%"/></td>
+        <td align="center" width="50%"> <img id="img"  width="100%"></td>
     </tr>
 </table>
 
@@ -40,7 +40,7 @@
     }
 
     if (navigator.getUserMedia) {
-        navigator.getUserMedia({audio: true, video: {width: 640, height: 4800}},
+        navigator.getUserMedia({audio: true, video: {width: cw, height: ch}},
             function (stream) {
                 video.srcObject = stream;
 
