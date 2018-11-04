@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<header>
+    local
+</header>
+<main>
+    <video id="video"/>
+</main>
+<aside>
+    <img id="img">
+</aside>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect('');
+
+    var img = document.getElementById('img');
+
+    socket.on('data', function (data) {
+        img.src = data;
+    });
+
+    var video = document.querySelector('video');
+    var back = document.createElement('canvas');
+    var backcontext = back.getContext('2d');
+    var cw = 400;
+    var ch = 300;
+    back.width = cw;
+    back.height = ch;
+    console.log('width = ' + ch);
+
+    function draw(v) {
+        backcontext.drawImage(v, 0, 0, cw, ch);
+        return back.toDataURL();
+    }
+
+    if (navigator.getUserMedia) {
+        navigator.getUserMedia({audio: true, video: {width: 640, height: 4800}},
+            function (stream) {
+                video.srcObject = stream;
+
+                video.onloadedmetadata = function (e) {
+                    video.play();
+                    setInterval(() => {
+                        var string = draw(video);
+                        socket.emit("image", string, function (data) {
+                            console.log('image');
+                        });
+                    }, 999)
+
+                };
+            },
+            function (err) {
+                console.log("The following error occurred: " + err.name);
+            }
+        );
+    } else {
+        console.log("getUserMedia not supported");
+    }
+
+</script>
+</body>
+</html>
