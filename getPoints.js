@@ -3,7 +3,7 @@ const tf = require('@tensorflow/tfjs');
 require('@tensorflow/tfjs-node');
 const {Image, createCanvas} = require('canvas');
 const posenet = require('@tensorflow-models/posenet');
-
+const netPromise   = posenet.load(0.5);
 module.exports = async function getPoints(sourse, array = false) {
   let img = new Image();
   img.src = sourse;
@@ -20,10 +20,11 @@ module.exports = async function getPoints(sourse, array = false) {
 // minimum distance in pixels between the root parts of poses
   const nmsRadius = 20;
 
-  const net  = await posenet.load(multiplier);
+  const  net = await netPromise;
+
   const poses = await net.estimateMultiplePoses(canvas, imageScaleFactor, flipHorizontal, outputStride, maxPoseDetections, scoreThreshold, nmsRadius);
   if (array) return poses.map(({ keypoints }) => {
-    return keypoints.map(({part, position: {x, y } = {}} = {}) => [x / img.height, y / img.width]);
+    return keypoints.map(({part, position: {x, y } = {}} = {}) => [x, y]);
   });
   return poses.map(({ keypoints }) => {
     const data = {};

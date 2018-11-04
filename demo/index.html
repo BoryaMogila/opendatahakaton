@@ -33,7 +33,6 @@
     var ch = 300;
     back.width = cw;
     back.height = ch;
-    console.log('width = ' + ch);
 
     function draw(v) {
         backcontext.drawImage(v, 0, 0, cw, ch);
@@ -48,6 +47,7 @@
                 video.onloadedmetadata = function (e) {
                     video.play();
                     setInterval(() => {
+                        console.log('image send');
                         var string = draw(video);
                         socket.emit("image", string, function (data) {
                             console.log('image');
