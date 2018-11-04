@@ -8,7 +8,7 @@ class Detector {
   constructor() {}
   async train(data) {
     const config = {
-      hiddenLayers: [20],
+      hiddenLayers: [3],
       activation: 'relu',
       errorThresh: 0.0005,
     };
