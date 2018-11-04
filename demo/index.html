@@ -9,12 +9,12 @@
 <header>
     local
 </header>
-<main>
-    <video id="video"/>
-</main>
-<aside>
-    <img id="img">
-</aside>
+<table>
+    <tr>
+        <td><video id="video" width="100%"/></td>
+        <td> <img id="img"  width="100%"></td>
+    </tr>
+</table>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -50,9 +50,9 @@
                         console.log('image send');
                         var string = draw(video);
                         socket.emit("image", string, function (data) {
-                            console.log('image');
+                            console.log('image got');
                         });
-                    }, 999)
+                    }, 500)
 
                 };
             },

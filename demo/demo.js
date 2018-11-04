@@ -6,7 +6,7 @@ const {Image, createCanvas} = require('canvas');
 
 demo.listen(8082);
 
-
+let busy;
 
 io.on('connection', function (socket) {
     console.log('connection');
@@ -15,7 +15,7 @@ io.on('connection', function (socket) {
         // stream.removeListener('data', pipeStream);
     });
     socket.on('image', function (data) {
-        let points = getPoints(data, true)
+        busy = busy || getPoints(data, true)
             .then((points)=> {
                 let img = new Image();
                 img.src = data;
@@ -25,14 +25,17 @@ io.on('connection', function (socket) {
                 for(let keypoints of points ) {
                     keypoints.forEach(([x, y]) => {
                         ctx.beginPath();
-                        ctx.arc(x, y, 3, 0, 2 * Math.PI);
+                        ctx.arc(x, y, 5, 0, 2 * Math.PI);
                         ctx.fillStyle = 'red';
                         ctx.fill();
                     })
                 }
-                console.log('draw')
                 socket.emit('data', canvas.toDataURL('image/png'));
             })
+            .catch(()=> {})
+            .then(()=> { busy = undefined})
+
+        return busy;
     });
 });
 app.get('/', function (req, res) {
